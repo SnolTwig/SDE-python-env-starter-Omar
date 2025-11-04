@@ -1,0 +1,75 @@
+def choices_shape(shape): #takes the user's chosen shape and runs the area fucntion of the shape
+    if shape == "triangle":
+        triangle_area()
+    elif shape == "rectangle":
+        rectangle_area()
+    elif shape == "square":
+        square_area()
+    elif shape == "circle":
+        circle_area()
+    else:
+        print("that is not a shape. try again.")
+#finds the area of a triangle using user inputed base and height
+def triangle_area():
+    try: #runs the area calcultion
+        base = int(input("What is the lenght of the base of the triangle?: "))
+        height = int(input("what is the height of the triangle?: "))
+        if base < 0 or height < 0:
+            print("sides can't be less than zero")
+            base = int(input("What is the lenght of the base of the triangle?: "))
+            height = int(input("what is the height of the triangle?: "))
+        area = (base*height)/2
+        print(area)
+    except ValueError: #but if the a value error is throw print this message let's the uses try again
+         print("that is not a number, try again.")
+         triangle_area()
+#finds the area of a rectangle using user inputed length and width
+def rectangle_area():
+    try: #runs the area calcultion
+        length = float(input("What is the lenght of the base of the rectangle?: "))
+        width = float(input("what is the height of the rectangle?: "))
+        if length < 0 or width < 0:
+            print("sides can't be less than zero")
+            length = float(input("What is the lenght of the base of the rectangle?: "))
+            width = float(input("what is the height of the rectangle?: "))
+        area = length*width
+        print(area)
+    except ValueError: #but if the a value error is throw print this message let's the uses try again
+         print("that is not a number, try again.")
+         rectangle_area()
+#finds the area of a square using user inputed side length
+def square_area():
+    try: #runs the area calcultion
+        side = float(input("what is the length of the side?: "))
+        if side < 0:
+            print("side can't be less than zero")
+            side = float(input("what is the length of the side?: "))
+        area = side*side
+        print(area)
+    except ValueError: #but if the a value error is throw print this message let's the uses try again
+        print("that is not a number, try again.")
+        square_area()
+
+#finds the area of a circle using user inputed radius length
+def circle_area():
+    try: #runs the area calcultion
+        radius = float(input("what is the radius of the circle?: "))
+        if radius < 0:
+            print("radius can't be less than zero")
+            radius = float(input("what is the radius of the circle?: "))
+        area = 3.14*radius*radius
+        print(area)
+    except ValueError: #but if the a value error is throw print this message let's the uses try again
+        print("that is not a number, try again.")
+        circle_area()
+
+playing = True
+
+while playing == True:
+    shape = input("I can calculate the area of a shape for you. Which shape do you want me to calculate the area of?\n triangle\n rectangle\n square\n circle: ")
+    shape = shape.lower()
+    choices_shape(shape)
+    keep_playing = input("Do you want to keep playing(Yes/No): ")
+    keep_playing = keep_playing.lower()
+    if keep_playing == "no" or keep_playing == 'n':
+        playing = False
