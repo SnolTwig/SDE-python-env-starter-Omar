@@ -27,29 +27,37 @@ A 12-character password assembled from letters and digits.
 
 import random
 import string
+
 def password_generator():
-    length = input("Enter the desired length of your password (must be at least 4 characters): ")
-    while not length.isdigit() or int(length) < 4:
-        print("Invalid input. Please enter a number greater than or equal to 4.")
-        length = input("Enter the desired length of your password (must be at least 4 characters): ")
+    length = input("Enter the desired length of your password (must be at least 4 characters): ")#ask user for length of password
+    while not length.isdigit() or int(length) < 4:#check that its a string greater than or equal to 4 and is a digit
+        length = input("Invalid input. Please enter a number greater than or equal to 4. try again: ")#reask user for length of password
     length = int(length)
 
-    included_char = input("Which types of characters would you like to include in your password? (uppercase, lowercase, digits, symbols) Separate with commas: ")
-    included_char_list = [char.strip().lower() for char in included_char.split(",")]
+    included_char = input("Which types of characters would you like to include in your password? (uppercase, lowercase, digits, symbols) Separate with commas: ")#ask the user for what types of characters to include
 
-    character_list = ""
-    if "uppercase" in included_char_list:
+    included_char = included_char.lower().strip().split(",")#convert included_char to list and remove any extra spaces and convert to lowercase
+    included_char_list = []#initialize included_char_list to store valid character types
+
+    for i in range(len(included_char)):#check that each character type is valid and if not ask the user to enter a valid character type
+        if included_char[i].strip() not in ["uppercase", "lowercase", "digits", "symbols"]:
+            new_char = input(f"'{included_char[i]}' is not a valid character type. Please enter a valid character type (uppercase, lowercase, digits, symbols): ")
+            new_char = new_char.lower().strip()
+            included_char[i] = new_char
+        included_char_list.append(included_char[i].strip())
+
+
+    character_list = ""#initialize character_list to store the characters that will be used to generate the password
+    if "uppercase" in included_char_list:#adds uppercase letters to the list of characters to be used in the password
         character_list += string.ascii_uppercase
-    if "lowercase" in included_char_list:
+    if "lowercase" in included_char_list:#adds lowercase letters to the list of characters to be used in the password
         character_list += string.ascii_lowercase
-    if "digits" in included_char_list:
+    if "digits" in included_char_list:#adds numbers letters to the list of characters to be used in the password
         character_list += string.digits
-    if "symbols" in included_char_list:
+    if "symbols" in included_char_list:#adds symbols letters to the list of characters to be used in the password
         character_list += string.punctuation
 
-    if not character_list:
-        print("No valid character types selected. Please select at least one type.")
-        return
+    password = ''.join(random.sample(character_list, length))#generate a random password by sampling characters from the character_list and joining them together
+    print(f"Generated password: {password}")#print out the generated password
 
-    password = ''.join(random.sample(character_list, length))
-    print(f"Generated password: {password}")
+password_generator()
